@@ -4,12 +4,13 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from io import BytesIO
 from flask import Flask, render_template, request
+import os
 from scipy.stats import chi2_contingency
 
 app = Flask(__name__)
 
 # Load your dataset
-dataset = pd.read_csv('C:/train.csv')
+dataset = pd.read_csv('./train.csv')
 dataset['family_size'] = dataset['SibSp'] + dataset['Parch']
 dataset = dataset.drop(columns=['SibSp', 'Parch'])
 
@@ -105,4 +106,5 @@ def figure(figure_type):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
