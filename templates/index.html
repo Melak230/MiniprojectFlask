@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            margin: 20px;
+        }
+
+        .navbar {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Navbar -->
+        <img class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Titanic Survival Dashboard</a>
+           
+        </nav>
+
+        <div class="row">
+            <!-- Sidebar with buttons -->
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a href="/figure/figure1" class="list-group-item list-group-item-action">Figure 1: Survival
+                        Probability by Class</a>
+                    <a href="/figure/figure2" class="list-group-item list-group-item-action">Figure 2: Survival Count</a>
+                    <a href="/figure/figure3" class="list-group-item list-group-item-action">Figure 3: Passenger Sex</a>
+                    <a href="/figure/figure4" class="list-group-item list-group-item-action">Figure 4: Survived by Sex</a>
+                    <a href="/figure/figure5" class="list-group-item list-group-item-action">Figure 5: Survived by Age</a>
+                    <a href="/figure/figure6" class="list-group-item list-group-item-action">Figure 6: Distribution by Family_size</a>
+                    <a href="/figure/figure7" class="list-group-item list-group-item-action">Figure 7: Relationship Test</a>
+
+                    <!-- Add more buttons as needed -->
+                </div>
+            </div>
+
+            <!-- Main content area -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Welcome to the Titanic Survival Dashboard</h5>
+                        <img src="/static/OIP.jpg"></img>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
