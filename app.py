@@ -9,7 +9,7 @@ from scipy.stats import chi2_contingency
 app = Flask(__name__)
 
 # Load your dataset
-dataset = pd.read_csv('C:/train.csv')
+dataset = pd.read_csv('./train.csv')
 dataset['family_size'] = dataset['SibSp'] + dataset['Parch']
 dataset = dataset.drop(columns=['SibSp', 'Parch'])
 
