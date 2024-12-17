@@ -1,22 +1,22 @@
-import pandas as pd
-import base64
-import seaborn as sns
-import matplotlib.pyplot as plt
-from io import BytesIO
-from flask import Flask, render_template, request
-import os
 from scipy.stats import chi2_contingency
+import os
+from flask import Flask, render_template, request
+from io import BytesIO
+import matplotlib.pyplot as plt
+import seaborn as sns
+import base64
+import pandas as pd
 
 app = Flask(__name__)
 
 # Load your dataset
 dataset = pd.read_csv('./train.csv')
-dataset['family_size'] = dataset['SibSp'] + dataset['Parch']
-dataset = dataset.drop(columns=['SibSp', 'Parch'])
+# Vérifie si les colonnes existent dans le dataset
+if 'SibSp' in dataset.columns and 'Parch' in dataset.columns:
+    dataset['family_size'] = dataset['SibSp'] + dataset['Parch']
+
 
 # Function to convert Matplotlib figures to base64
-
-
 def fig_to_base64(fig):
     img_bytes = BytesIO()
     fig.savefig(img_bytes, format='png')
@@ -27,7 +27,6 @@ def fig_to_base64(fig):
 
 @app.route('/')
 def index():
-
     return render_template('index.html')
 
 
@@ -79,12 +78,20 @@ def figure(figure_type):
         g.fig.subplots_adjust(top=0.85)
         fig_base64 = fig_to_base64(g.fig)
     elif figure_type == 'figure6':
-        sns.countplot(x='family_size', data=dataset, palette='Set2')
-        plt.title('Distribution of Family Size')
-        plt.xlabel('Family Size')
-        plt.ylabel('Number of Passengers')
-        fig_base64 = fig_to_base64(plt.gcf())
-    # Create a contingency table between Embarked and Pclass
+        if 'family_size' in dataset.columns:
+            # Create a new figure and axes
+            fig, ax = plt.subplots(figsize=(6, 4))
+            sns.countplot(x='family_size', data=dataset,
+                          hue='family_size', palette='Set2', ax=ax, legend=False)
+            ax.set_title('Distribution of Family Size')
+            ax.set_xlabel('Family Size')
+            ax.set_ylabel('Number of Passengers')
+            fig.tight_layout()  # Ensures the plot is adjusted properly
+            fig_base64 = fig_to_base64(fig)  # Convert the figure to base64
+        else:
+            fig_base64 = None  # Handle error case where family_size is missing
+            print("family_size column is missing!")
+ # Convert the figure to base64
     elif figure_type == 'figure7':
         contingency_table = pd.crosstab(dataset['Embarked'], dataset['Pclass'])
         print("Table de contingence :")
